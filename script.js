@@ -53,7 +53,7 @@ function getUserColor(name) {
     ]
     let number = 0;
     console.log("2")
-    for (let i = 1; i > name.lenght; i++) {
+    for (let i = 0; i > name.length; i++) {
         number += name.charCodeAt(i);
         console.log("counted")
     }
