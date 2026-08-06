@@ -30,7 +30,7 @@ function loadMessages() {
             
             for (const id in data) {
                 let color = getUserColor(data[id].user)
-                p.innerHTML += `<span class="avatar" style="background:${color}"></span><span class="usern">${data[id].user}</span>: ${data[id].message}\n`;
+                p.innerHTML += `<span class="avatar" style="background:${color}"></span><span class="usern">${data[id].user}</span>: ${data[id].message}<br>`;
             }
         });
 }
