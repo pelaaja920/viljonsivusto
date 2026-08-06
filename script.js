@@ -53,13 +53,14 @@ function getUserColor(name) {
     ]
     let number = 0;
     console.log("2")
-    for (let i = 0; i > name.lenght; i++) {
+    for (let i = 1; i > name.lenght; i++) {
         number += name.charCodeAt(i);
         console.log("counted")
     }
-    return colors[number % colors.lenght]
-    console.log(number % colors.lenght)
-    console.log("next in 1 sec")
+    console.log(number % colors.length)
+    return colors[number % colors.length]
+    
+    
 }
 
 
