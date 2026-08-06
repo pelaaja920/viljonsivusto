@@ -2,23 +2,27 @@
 <html lang="fi">
   
     <head>
-        <link rel="stylesheet" href="style.css">   
+        <link rel="stylesheet" href="style.css">  
+        <script type="module" src="script.js"></script> 
         <title>Viljon sivusto</title>
             
     </head>
     
     <body>
-        <h1>Viljon sivusto</h1>
-        <p>Mun sivusto mikä on... Vähän vaiheessa</p>
-        <div class="buttonbox1">
-            <p> </p>
-            <button onclick="location.href='login.html'">
+        <div class="center-row">
+            <h1>Viljon sivusto</h1>
+            <button onclick="location.href='login.html'" id="loginbutton">
                 Kirjaudu sisään
             </button>
-            <p>Kokeile Messagesia viereisestä linkistä!</p>
-            <button onclick="window.location.href='/messages.html'">
-                Siirry Messagesiin (beta)
-            </button>
+        </div>
+        <p>Mun sivusto mikä on... Vähän vaiheessa</p>
+        <div class="buttonbox1">
+            <div class="row">
+                <p>Kokeile Messagesia viereisestä linkistä!</p>
+                <button onclick="window.location.href='messages.html'" id="right">
+                    Siirry Messagesiin
+                </button>
+            </div>
             
         </div>
         

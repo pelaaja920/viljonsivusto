@@ -2,21 +2,19 @@
 <html lang="fi">
     <head>
         <link rel="stylesheet" href="style.css">
-        <script type="module" src="login.js"></script>
+        <script type="module" src="register.js"></script>
     </head>
     <body>
-        <h1>Kirjaudu sisään tilillesi</h1>
+        <h1>Tee uusi tili</h1>
         <div class="buttonbox1">
             <p>Sähköposti</p>
             <input id="email" type="text" placeholder="Kirjoita sähköpostiosoite">
             <p>Salasana</p>
             <input id="password" type="password" placeholder="Salasana">
+            <p>Käyttäjänimi (näkyy julkisesti kaikille)</p>
+            <input id="usernameinput" type="text" placeholder="Käyttäjänimi">
             <p>Kun olet valmis, paina OK nappia.</p>
-            <button id="login">OK</button>
-            <div class="row">
-                <p>Eikö sinulla ole tiliä?</p><a href="register.html"> Tee uusi tili!</a>
-            </div>
-            
+            <button id="register">OK</button>
         </div>
         <div class="buttonbox2">
             <p>Sähköpostia/salasanaa ei koskaan tallenneta tavalliseen databaseen. Ne tallennetaan monumutkaisilla suojauksilla suojattuun Googlen palvelimeen. Kun kirjaudut sisään, kukaan, paitsi kehittäjät, eivät voi nähdä yksityisiä tietojasi. Kaikki, jotka ovat myös kirjautuneet sisään eri tileillä, voivat nähdä julkiset tietosi (käyttäjänimi, käyttäjän luomisvuosi jne), mutta ei yksityisiä tietojasi (sähköposti, SECRETit, salasana jne).</p>
