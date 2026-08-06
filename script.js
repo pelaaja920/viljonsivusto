@@ -5,5 +5,8 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/fi
 
 onAuthStateChanged(auth, (user) => {
     console.log("Käyttäjä:", user);
-    document.getElementById("loginbutton").hidden = true;
+    if (user != null) {
+        document.getElementById("loginbutton").hidden = true;
+    }
+    
 });
