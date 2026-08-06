@@ -29,7 +29,7 @@ function loadMessages() {
             p.innerHTML = "";
 
             for (const id in data) {
-                p.innerHTML += `${data[id].user}: ${data[id].message}<br>`;
+                p.innerHTML += `<b>${data[id].user}:</b> ${data[id].message}<br>`;
             }
         });
 }
