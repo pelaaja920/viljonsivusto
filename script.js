@@ -56,6 +56,7 @@ function getUserColor(name) {
         number += name.charCodeAt(i);
     }
     return colors[number % colors.lenght]
+    console.log(number % colors.lenght)
 }
 
 
