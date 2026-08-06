@@ -106,3 +106,9 @@ input::placeholder {
     align-items:center;
     gap:10px;
 }
+.bigtext{
+    font-weight:bold;
+    color:rgb(210, 105, 30);
+    font-size:medium;
+
+}
