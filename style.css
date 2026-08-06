@@ -106,9 +106,17 @@ input::placeholder {
     align-items:center;
     gap:10px;
 }
-.bigtext{
+.usern{
     font-weight:bold;
-    color:rgb(0, 162, 255);
+    color:rgb(255, 255, 255);
     font-size:large;
 
+}
+.avatar{
+    display:inline-block;
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    vertical-align:middle;
+    margin-right:8px;
 }
