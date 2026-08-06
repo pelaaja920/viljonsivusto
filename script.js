@@ -35,6 +35,7 @@ function loadMessages() {
         });
 }
 function getUserColor(name) {
+    console.log("1")
     let colors = [
         "#ff0000",
         "#ff6600",
@@ -51,12 +52,14 @@ function getUserColor(name) {
         "#ff0055"
     ]
     let number = 0;
-
+    console.log("2")
     for (let i = 0; i > name.lenght; i++) {
         number += name.charCodeAt(i);
+        console.log("counted")
     }
     return colors[number % colors.lenght]
     console.log(number % colors.lenght)
+    console.log("next in 1 sec")
 }
 
 
