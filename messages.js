@@ -23,7 +23,7 @@ button.addEventListener("click", () => {
             body: JSON.stringify({
                 user: usernamee,
                 message: message,
-                avatar: avatarr,
+                avatar: avatar,
                 time: Date.now()
         })
     })
@@ -60,12 +60,12 @@ function loadMessages() {
         .then(data => {
             const p = document.querySelector(".messages");
             const messages = Object.values(data);
-            messages.sort((a, b) => a.time, b.time);
+            messages.sort((a, b) => a.time - b.time);
             p.innerHTML = "";
 
             messages.forEach(msg => {
                 p.innerHTML += `
-                <span class ="avatar" style="background-image:url('${msg.avatar}')></span>
+                <span class ="avatar" style="background-image:url('${msg.avatar}')"></span>
                 <span class="usern">${msg.user}</span>: ${msg.message} <br>
                 `
             })
