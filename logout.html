@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fi">
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <script>import { signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { auth } from "./firebase.js";
+
+const logoutBtn = document.querySelector(".logoutbutton");
+
+logoutBtn.addEventListener("click", () => {
+    signOut(auth)
+        .then(() => {
+            console.log("Kirjauduttu ulos");
+            window.location.href = "login.html"; // vie kirjautumissivulle
+        })
+        .catch((error) => {
+            console.error("Logout virhe:", error);
+        });
+});
+</script>
+    </head>
+    <body>
+        <h1>Kirjaudu ulos</h1>
+        <div class="buttonbox2">
+            <p>Kun kirjaudut ulos, tietojasi ei poisteta. Voit sitten kirjautua eri tilille eri sähköpostilla, tai pysyä kirjautumatta. Jos haluat poistaa tilisi tiedot tai jotain niistä, kysy apua sivuston tekijöiltä GitHubissa (@pelaaja920). Kun kirjaudut ulos, voit silti kirjautua sisään tilillesi eri laitteilla.</p>
+            <button class="logoutbutton">Vahvista</button>
+        </div>
+        <p>GitHub: @pelaaja920 & @peikkoKoodaa</p>
+    </body>
+</html>
