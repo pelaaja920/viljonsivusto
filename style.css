@@ -19,6 +19,9 @@ a {
     font-family: Arial, sans-serif;
     color: rgb(255, 81, 0);
 }
+a:hover {
+    cursor:pointer;
+}
 button {
     width:auto;
     height:auto;
