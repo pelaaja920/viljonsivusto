@@ -27,7 +27,9 @@ document.querySelector("#register").onclick = () => {
                 },
                 body: JSON.stringify({
                     username: username2,
-                    admin: false
+                    admin: false,
+                    description: "This user has no description",
+                    avatar: "https://th.bing.com/th/id/OIP.oFCdkrt8_o9UdkAAD-SI1QHaHa?w=200&h=200&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3"
                 })
             });
         })
@@ -38,4 +40,33 @@ document.querySelector("#register").onclick = () => {
         window.location.replace("error.html")
     })
 
+}
+document.querySelector("#githubRegister").onclick = () => {
+    const uid = result.user.uid;
+    const githubUsername =
+        result.user.reloadUserInfo?.screenName ||
+        result.user.providerData[0]?.displayName;
+    const credential = GithubAuthProvider.credentialFromResult(result);
+    const token = credential.accessToken;
+    return fetch("https://api.github.com/user", {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    .then(r => r.json())
+    .then(data => {
+        return fetch(`https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/users/${uid}.json`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                username: githubUsername,
+                admin: false,
+                description: data.bio || "This user has no description",
+                avatar: data.avatar_url
+            })
+        });
+    });
+    
 }
