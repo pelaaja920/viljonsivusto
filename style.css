@@ -146,6 +146,9 @@ input::placeholder {
     border-radius:50%;
     vertical-align:middle;
     margin-right:8px;
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position:center;
     
 }
 #right {
