@@ -6,33 +6,31 @@ const button = document.querySelector(".send");
 let usernamee = "Anonyymi";
 let admin = false;
 let uidd = null;
-let avatar = "https://th.bing.com/th/id/OIP.oFCdkrt8_o9UdkAAD-SI1QHaHa?w=200&h=200&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3";
+let avatar = "https://cdn.corenexis.com/f/hQ3kkSmtG5I.png";
 button.addEventListener("click", () => {
     
     const message = input.value;
     
 
-    if (message != "!admincmd.clear") {
+    if (!message.includes("!#")) {
         fetch("https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/messages.json", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            
-
             body: JSON.stringify({
                 user: usernamee,
                 message: message,
                 avatar: avatar,
                 time: Date.now()
+            })
         })
-    })
-    .then(() => {
-        input.value = "";
-        loadMessages(); // Päivitä heti lähetyksen jälkeen
-    });
-}
-    else {
+        .then(() => {
+            input.value = "";
+            loadMessages(); // Päivitä heti lähetyksen jälkeen
+        });
+    }
+    else if (message.includes("!#clear")) {
         fetch("https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/messages.json", {
             method: "DELETE"
         })
@@ -44,7 +42,52 @@ button.addEventListener("click", () => {
                 },
                 body: JSON.stringify({
                     user: "[system]",
-                    message: `Messages tyhjennetty ylläpitäjän ${usernamee} toimesta`
+                    message: `Messages tyhjennetty ylläpitäjän ${usernamee} toimesta`,
+                    avatar: "https://cdn.corenexis.com/f/l5givpbYsQb.png",
+                    time: 0
+                })
+            });
+        })
+        .then(() => {
+            input.value = "";
+            loadMessages();
+        });
+    }
+    else if (message.includes("!#del.")) {
+        const [ignore, deletemsg] = message.split(".", 2);
+        fetch("https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/messages.json")
+            .then(r => r.json())
+            .then(data => {
+                const deletePromises = [];
+                for (const key in data) {
+                    if (data[key].message === deletemsg) {
+                        deletePromises.push(fetch(`https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/messages/${key}.json`, {
+                            method: "PATCH",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                message: "Tämä viesti poistettiin",
+                                user: "???",
+                                avatar: "https://cdn.corenexis.com/f/wzjTdegypqO.png"
+                            })
+
+                        }));
+                    }
+                }
+                return Promise.all(deletePromises);
+            })
+        .then(() => {
+            return fetch("https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/messages.json", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    user: "[system]",
+                    message: `Messages tyhjennetty ylläpitäjän ${usernamee} toimesta`,
+                    avatar: "https://cdn.corenexis.com/f/l5givpbYsQb.png",
+                    time: 0
                 })
             });
         })

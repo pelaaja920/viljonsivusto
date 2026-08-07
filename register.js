@@ -97,6 +97,6 @@ document.querySelector("#githubRegister").onclick = () => {
         })
         .catch((error) => {
             console.error(error);
-            window.location.replace("error.html");
+            window.location.replace("errorr.html");
         });
 };

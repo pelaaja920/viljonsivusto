@@ -38,6 +38,6 @@ document.getElementById("login").onclick = () => {
         })
         .catch((error) => {
             console.error(error);
-            window.location.href = "errorr.html";
+            window.location.href = "error.html";
         });
 };
