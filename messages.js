@@ -23,7 +23,8 @@ button.addEventListener("click", () => {
             body: JSON.stringify({
                 user: usernamee,
                 message: message,
-                avatar: avatarr
+                avatar: avatarr,
+                time: Date.now()
         })
     })
     .then(() => {
@@ -58,14 +59,16 @@ function loadMessages() {
         .then(r => r.json())
         .then(data => {
             const p = document.querySelector(".messages");
+            const messages = Object.values(data);
+            messages.sort((a, b) => a.time, b.time);
             p.innerHTML = "";
 
-            for (const id in data) {
+            messages.forEach(msg => {
                 p.innerHTML += `
-                    <span class="avatar" style="background-image:url('${data[id].avatar}')"></span>
-                    <span class="usern">${data[id].user}</span>: ${data[id].message}<br>
-                `;
-            }
+                <span class ="avatar" style="background-image:url('${msg.avatar}')></span>
+                <span class="usern">${msg.user}</span>: ${msg.message} <br>
+                `
+            })
         });
 }
 function getUserColor(name) {
