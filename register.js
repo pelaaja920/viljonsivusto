@@ -75,8 +75,20 @@ document.querySelector("#githubRegister").onclick = () => {
                         username: githubUsername,
                         admin: false,
                         description: data.bio || "This user has no description",
-                        avatar: data.avatar_url
+                        avatar: data.avatar_url,
+                        githubId: data.id
                     })
+                })
+                .then(() => {
+                    return fetch(`https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/githubLinks/${data.id}.json`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            uid: uid
+                        })
+                    });
                 });
             });
         })
