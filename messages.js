@@ -1,12 +1,16 @@
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+import { auth } from "./firebase.js";
+
 const input = document.querySelector(".texxt");
 const button = document.querySelector(".send");
 let usernamee = "Anonyymi";
-let admin = false
-import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
-import { auth } from "./firebase.js";
+let admin = false;
+let uidd = null;
+let avatar = "https://th.bing.com/th/id/OIP.oFCdkrt8_o9UdkAAD-SI1QHaHa?w=200&h=200&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3";
 button.addEventListener("click", () => {
     
     const message = input.value;
+    
 
     if (message != "!admincmd.clear") {
         fetch("https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/messages.json", {
@@ -14,9 +18,12 @@ button.addEventListener("click", () => {
             headers: {
                 "Content-Type": "application/json"
             },
+            
+
             body: JSON.stringify({
                 user: usernamee,
-                message: message
+                message: message,
+                uid: uidd
         })
     })
     .then(() => {
@@ -54,9 +61,20 @@ function loadMessages() {
             p.innerHTML = "";
             
             for (const id in data) {
-                
-                let color = getUserColor(data[id].user)
-                p.innerHTML += `<span class="avatar" style="background:${color}"></span><span class="usern">${data[id].user}</span>: ${data[id].message}<br>`;
+
+            fetch(`https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/users/${data[id].uid}/avatar.json`)
+            .then(r => r.json())
+            .then(avatar => {
+
+            let color = getUserColor(data[id].user);
+
+            p.innerHTML += `
+                <span class="avatar" style="background-image:url('${avatar}')"></span>
+                <span class="usern">${data[id].user}</span>: ${data[id].message}<br>
+            `;
+        });
+
+}
                 
             }
         });
@@ -92,12 +110,13 @@ setInterval(loadMessages, 1000);
 
 onAuthStateChanged(auth, (user) => {
     if (!user) return;
-
+    uidd = user.uid;
     fetch(`https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/users/${user.uid}.json`)
         .then(r => r.json())
         .then(data => {
             console.log(data.username);
             usernamee = data.username;
             admin = data.admin;
+            
         });
 });
