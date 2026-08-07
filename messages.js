@@ -23,7 +23,7 @@ button.addEventListener("click", () => {
             body: JSON.stringify({
                 user: usernamee,
                 message: message,
-                uid: uidd
+                avatar: avatarr
         })
     })
     .then(() => {
@@ -61,15 +61,10 @@ function loadMessages() {
             p.innerHTML = "";
 
             for (const id in data) {
-                fetch(`https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/users/${data[id].uid}/avatar.json`)
-                    .then(r => r.json())
-                    .then(avatar => {
-
-                        p.innerHTML += `
-                            <span class="avatar" style="background-image:url('${avatar}')"></span>
-                            <span class="usern">${data[id].user}</span>: ${data[id].message}<br>
-                        `;
-                    });
+                p.innerHTML += `
+                    <span class="avatar" style="background-image:url('${data[id].avatar}')"></span>
+                    <span class="usern">${data[id].user}</span>: ${data[id].message}<br>
+                `;
             }
         });
 }
@@ -104,13 +99,13 @@ setInterval(loadMessages, 1000);
 
 onAuthStateChanged(auth, (user) => {
     if (!user) return;
-    uidd = user.uid;
     fetch(`https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/users/${user.uid}.json`)
         .then(r => r.json())
         .then(data => {
             console.log(data.username);
             usernamee = data.username;
             admin = data.admin;
+            avatar = data.avatar;
             
         });
 });
