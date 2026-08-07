@@ -59,23 +59,17 @@ function loadMessages() {
         .then(data => {
             const p = document.querySelector(".messages");
             p.innerHTML = "";
-            
+
             for (const id in data) {
+                fetch(`https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/users/${data[id].uid}/avatar.json`)
+                    .then(r => r.json())
+                    .then(avatar => {
 
-            fetch(`https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/users/${data[id].uid}/avatar.json`)
-            .then(r => r.json())
-            .then(avatar => {
-
-            let color = getUserColor(data[id].user);
-
-            p.innerHTML += `
-                <span class="avatar" style="background-image:url('${avatar}')"></span>
-                <span class="usern">${data[id].user}</span>: ${data[id].message}<br>
-            `;
-        });
-
-}
-                
+                        p.innerHTML += `
+                            <span class="avatar" style="background-image:url('${avatar}')"></span>
+                            <span class="usern">${data[id].user}</span>: ${data[id].message}<br>
+                        `;
+                    });
             }
         });
 }
