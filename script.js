@@ -7,6 +7,11 @@ onAuthStateChanged(auth, (user) => {
     console.log("Käyttäjä:", user);
     if (user != null) {
         document.getElementById("loginbutton").hidden = true;
+        document.getElementById("logoutbutton").hidden = false;
+    }
+    else {
+        document.getElementById("loginbutton").hidden = false;
+        document.getElementById("logoutbutton").hidden = true;
     }
     
 });
