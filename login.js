@@ -7,28 +7,20 @@ import {
 
 const provider = new GithubAuthProvider();
 
-// GitHub-kirjautuminen
 document.getElementById("githubLogin").onclick = () => {
-    fetch(`https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/users/${uid}.json`)
-        .then(r => r.json())
-        .then(data => {
-            if (data != null) {
-                signInWithPopup(auth, provider)
-        .then((result) => {
-            window.location.href = "success.html";
-        })
-        .catch((error) => {
-            console.error(error);
-            window.location.replace("success.html")
-        });
-            }
-            else {
-                window.location.href = "notlinked.html";
-            }
-        })
     signInWithPopup(auth, provider)
         .then((result) => {
-            window.location.href = "success.html";
+            const githubId = result.user.providerData[0].uid;
+
+            return fetch(`https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/githubLinks/${githubId}.json`);
+        })
+        .then(r => r.json())
+        .then(data => {
+            if (data) {
+                window.location.href = "success.html";
+            } else {
+                window.location.href = "notlinked.html";
+            }
         })
         .catch((error) => {
             console.error(error);
