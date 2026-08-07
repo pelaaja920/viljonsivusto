@@ -11,7 +11,7 @@ logoutBtn.addEventListener("click", () => {
     signOut(auth)
         .then(() => {
             console.log("Kirjauduttu ulos");
-            window.location.href = "login.html"; // vie kirjautumissivulle
+            window.location.href = "login.html";
         })
         .catch((error) => {
             console.error("Logout virhe:", error);
