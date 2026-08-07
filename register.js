@@ -41,32 +41,50 @@ document.querySelector("#register").onclick = () => {
     })
 
 }
+import {
+    GithubAuthProvider,
+    signInWithPopup
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+const provider = new GithubAuthProvider();
+
 document.querySelector("#githubRegister").onclick = () => {
-    const uid = result.user.uid;
-    const githubUsername =
-        result.user.reloadUserInfo?.screenName ||
-        result.user.providerData[0]?.displayName;
-    const credential = GithubAuthProvider.credentialFromResult(result);
-    const token = credential.accessToken;
-    return fetch("https://api.github.com/user", {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    })
-    .then(r => r.json())
-    .then(data => {
-        return fetch(`https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/users/${uid}.json`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                username: githubUsername,
-                admin: false,
-                description: data.bio || "This user has no description",
-                avatar: data.avatar_url
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            const uid = result.user.uid;
+            const githubUsername =
+                result.user.reloadUserInfo?.screenName ||
+                result.user.providerData[0]?.displayName;
+
+            const credential = GithubAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+
+            return fetch("https://api.github.com/user", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
             })
+            .then(r => r.json())
+            .then(data => {
+                return fetch(`https://viljonsivu-default-rtdb.europe-west1.firebasedatabase.app/users/${uid}.json`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        username: githubUsername,
+                        admin: false,
+                        description: data.bio || "This user has no description",
+                        avatar: data.avatar_url
+                    })
+                });
+            });
+        })
+        .then(() => {
+            window.location.replace("successr.html");
+        })
+        .catch((error) => {
+            console.error(error);
+            window.location.replace("error.html");
         });
-    });
-    
-}
+};
