@@ -155,3 +155,29 @@ input::placeholder {
     position:absolute;
     right: 20px;
 }
+#sidebar {
+    display:flex;
+    position:fixed;
+    flex-direction:column;
+    
+    margin:0;
+    padding: 20px;
+    
+    justify-content:flex-start;
+    align-items:center;
+    top:0;
+    left:-35vh;
+    width:40vh;
+    min-width:20px;
+    height:100vh;
+    transition:left ease 0.2s;
+    background:linear-gradient(-30deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.5));
+    border-radius:20px;
+}
+#sidebar:hover {
+    left:calc(0vh - 20px);
+}
+#sidebar button {
+    width:calc(100% - 20px);
+    height:50px;
+}
